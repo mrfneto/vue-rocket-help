@@ -11,6 +11,6 @@
 @tailwind utilities;
 
 body {
-  @apply font-roboto;
+  @apply font-roboto bg-zinc-900 text-zinc-100;
 }
 </style>
