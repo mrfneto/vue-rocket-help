@@ -1,6 +1,12 @@
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { ref, onMounted, onUnmounted, computed } from "vue";
 import { auth, db } from "./index";
+
+// AUTH
 
 export const getUserState = () => {
   return new Promise((resolve, reject) => {
@@ -28,4 +34,8 @@ export const useAuthState = () => {
 
 export const loginWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
+};
+
+export const logoutUser = async () => {
+  return await signOut(auth);
 };
