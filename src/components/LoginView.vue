@@ -1,12 +1,24 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { loginWithEmailAndPassword } from "../firebase/useFirebase";
 import Symbol from "./icons/symbol.vue";
 
-const email = ref("");
-const password = ref("");
+const router = useRouter();
 
-const handleSubmit = () => {
-  console.log(email.value, password.value);
+const email = ref("mrfneto@gmail.com");
+const password = ref("password");
+const error = ref(null);
+
+const handleSubmit = async () => {
+  error.value = null;
+  try {
+    await loginWithEmailAndPassword(email.value, password.value);
+    router.replace({ name: "home" });
+  } catch (e) {
+    console.log(e);
+    error.value = "E-mail ou senha invalida.";
+  }
 };
 </script>
 <template>
@@ -26,9 +38,17 @@ const handleSubmit = () => {
         type="email"
         placeholder="E-mail"
         class="bg-zinc-900 rounded-md w-full mb-4 border-zinc-900 focus:border-emerald-300 focus:ring-emerald-300"
+        :class="
+          error
+            ? 'mb-1 border-red-500 focus:border-red-300 focus:ring-red-300'
+            : ''
+        "
         required
         v-model.trim="email"
       />
+      <p v-if="error" class="text-sm mb-4 text-red-500 text-left">
+        {{ error }}
+      </p>
       <input
         type="password"
         placeholder="Senha"
