@@ -25,9 +25,13 @@ body {
 /* BUTTONS */
 
 .btn {
-  @apply block w-full font-bold p-2 rounded-md uppercase  transition-colors duration-200;
+  @apply inline-flex items-center justify-center font-bold p-2 rounded-md uppercase transition-colors duration-200;
 }
 
 .btn--primary {
   @apply text-zinc-100 bg-emerald-500  hover:bg-emerald-600;
+}
+
+.btn--base {
+  @apply hover:bg-zinc-700;
 }
