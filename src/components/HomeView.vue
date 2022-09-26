@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { logoutUser } from "../firebase/useFirebase";
 import Logo from "./shared/Logo.vue";
 import LogoutIcon from "./icons/LogoutIcon.vue";
+import Symbol from "./icons/symbol.vue";
 
 const router = useRouter();
 
@@ -27,12 +28,12 @@ const logout = async () => {
         <LogoutIcon class="w-5 h-5" />
       </button>
     </header>
-    <main class="flex-1 py-8 px-4">
+    <main class="flex-1 py-8 px-4 overflow-y-auto">
       <section class="flex items-center justify-between mb-6">
         <h2>Solicitações</h2>
         <p class="text-sm text-zinc-400">0</p>
       </section>
-      <section class="flex items-center space-x-2">
+      <section class="flex items-center space-x-2 mb-8">
         <button
           class="btn w-full text-sm btn--secondary"
           :class="active ? '' : 'btn__outline--secondary'"
@@ -48,7 +49,16 @@ const logout = async () => {
           Finalizado
         </button>
       </section>
+      <section class="text-center">
+        <Symbol class="w-12 h-12 opacity-40 mx-auto mb-4" />
+        <p class="text-zinc-400 text-lg font-semibold tracking-wider">
+          Você ainda não tem <br />
+          chamados criados
+        </p>
+      </section>
     </main>
-    <footer>footer</footer>
+    <footer class="py-2 px-4">
+      <button to="#" class="btn btn--primary w-full">Nova Solicitação</button>
+    </footer>
   </div>
 </template>
