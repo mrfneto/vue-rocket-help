@@ -25,11 +25,7 @@ body {
 /* BUTTONS */
 
 .btn {
-  @apply inline-flex items-center justify-center font-medium p-2 rounded-md uppercase transition-colors duration-200;
-}
-
-.btn--base {
-  @apply hover:bg-zinc-700;
+  @apply inline-flex items-center justify-center font-medium p-2 rounded-md uppercase transition-colors duration-200 hover:bg-zinc-700;
 }
 
 .btn--primary {
