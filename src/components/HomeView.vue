@@ -34,7 +34,7 @@ const logout = async () => {
     <main class="flex-1 py-8 px-4 overflow-y-auto">
       <div class="flex items-center justify-between mb-6">
         <h2>Solicitações</h2>
-        <p class="text-sm text-zinc-400">{{store.orders.length}}</p>
+        <p class="text-sm text-zinc-400">{{ store.orders.length }}</p>
       </div>
       <div class="flex items-center space-x-2 mb-8">
         <BaseButton
@@ -55,7 +55,7 @@ const logout = async () => {
         </BaseButton>
       </div>
 
-      <BaseList :orders="store.orders" />
+      <BaseList :orders="store.getOrdersByStatus(active)" />
     </main>
     <footer class="py-2 px-4">
       <BaseButton to="#" color="green" class="w-full">
