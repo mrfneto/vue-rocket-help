@@ -1,17 +1,26 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "../stores";
+import { useOrderStore } from "../stores/order";
 import { logoutUser } from "../firebase/useFirebase";
 import Logo from "./shared/Logo.vue";
 import BaseButton from "./shared/BaseButton.vue";
-import BaseList from "./shared/BaseList.vue";
 import IconLogout from "./icons/IconLogout.vue";
+import Loading from "./shared/Loading.vue";
+import BaseList from "./shared/BaseList.vue";
 
 const router = useRouter();
-const store = useStore();
+const orderStore = useOrderStore();
 
-const active = ref(true);
+const active = ref(false);
+
+onMounted(async () => {
+  await orderStore.getOrders();
+});
+
+const orders = computed(() => {
+  return orderStore.getOrdersByStatus(active.value);
+});
 
 const logout = async () => {
   try {
@@ -31,12 +40,14 @@ const logout = async () => {
         <IconLogout class="w-5 h-5" />
       </BaseButton>
     </header>
-    <main class="flex-1 py-8 px-4 overflow-y-auto">
+    <main class="flex-1 py-4 px-4 overflow-y-auto">
       <div class="flex items-center justify-between mb-6">
         <h2>Solicitações</h2>
-        <p class="text-sm text-zinc-400">{{ store.orders.length }}</p>
+        <p class="text-sm text-zinc-400">
+          {{ orders.length }}
+        </p>
       </div>
-      <div class="flex items-center space-x-2 mb-8">
+      <div class="flex items-center space-x-2 mb-4">
         <BaseButton
           @click="active = false"
           :outline="!active"
@@ -55,10 +66,13 @@ const logout = async () => {
         </BaseButton>
       </div>
 
-      <BaseList :orders="store.getOrdersByStatus(active)" />
+      <div class="flex justify-center py-4" v-if="orderStore.loading">
+        <Loading />
+      </div>
+      <BaseList v-if="!orderStore.loading" :orders="orders" />
     </main>
     <footer class="py-2 px-4">
-      <BaseButton to="#" color="green" class="w-full">
+      <BaseButton :to="{ name: 'create' }" color="green" class="w-full">
         Nova Solicitação
       </BaseButton>
     </footer>

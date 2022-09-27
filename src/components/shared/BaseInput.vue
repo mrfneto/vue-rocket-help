@@ -1,5 +1,4 @@
 <script setup>
-inheritAttrs: false;
 defineProps({
   id: String,
   label: String,
@@ -9,13 +8,13 @@ defineProps({
 });
 </script>
 <template>
-  <div :class="$attrs.class">
+  <div class="flex flex-col">
     <label v-if="label" :for="id" class="form__label">{{ label }}</label>
     <!-- Textarea -->
     <textarea
       v-if="type === 'textarea'"
       :class="['form__input', { error: error }]"
-      v-bind="{ ...$attrs, class: null }"
+      v-bind="$attrs"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
     />
@@ -24,7 +23,7 @@ defineProps({
       v-else
       :type="type"
       :class="['form__input', { error: error }]"
-      v-bind="{ ...$attrs, class: null }"
+      v-bind="$attrs"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
     />

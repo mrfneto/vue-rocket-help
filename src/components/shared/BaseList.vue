@@ -28,7 +28,7 @@ defineProps({
       <p class="font-semibold tracking-wider">Patrimônio: {{ order.number }}</p>
       <div class="flex items-center text-sm space-x-2 text-zinc-500">
         <IconClock class="w-4 h-4" />
-        <span>{{ order.created_at }}</span>
+        <span>{{ order.created_at.toDate().toLocaleString() }}</span>
       </div>
     </div>
     <div class="bg-zinc-900 rounded-full p-2">
