@@ -4,41 +4,23 @@
 @tailwind utilities;
 
 body {
-  @apply font-roboto bg-zinc-900 text-zinc-100;
+  @apply font-roboto bg-base-900 text-base-100;
 }
 
 /* FORM */
-.form__input,
-.form__textarea {
-  @apply bg-zinc-900 rounded-md w-full mb-4 border-zinc-900 focus:border-emerald-300 focus:ring-emerald-300;
+
+.form__label {
+  @apply block text-sm font-medium text-opacity-75 mb-2;
 }
 
-.form__input.error,
-.form__textarea.error {
-  @apply mb-1 border-red-500 focus:border-red-300 focus:ring-red-300;
+.form__control {
+  @apply block w-full text-sm rounded-md mb-4 focus:border-primary-300 focus:ring-primary-300 focus:outline-none focus:ring focus:ring-opacity-60;
+}
+
+.form__control.error {
+  @apply mb-1 border-danger-500 focus:border-danger-300 focus:ring-danger-300;
 }
 
 .form__error {
-  @apply text-sm mb-4 text-red-500 text-left;
-}
-
-/* BUTTONS */
-
-.btn {
-  @apply inline-flex items-center justify-center font-medium p-2 rounded-md uppercase transition-colors duration-200 hover:bg-zinc-700;
-}
-
-.btn--primary {
-  @apply text-zinc-100 bg-emerald-500  hover:bg-emerald-600;
-}
-
-.btn--secondary {
-  @apply text-zinc-500 bg-zinc-800 hover:bg-zinc-700;
-}
-
-.btn__outline--primary {
-  @apply border border-emerald-500 text-emerald-300;
-}
-.btn__outline--secondary {
-  @apply border border-yellow-500 text-yellow-300;
+  @apply text-sm mb-4 text-danger-500 text-left;
 }

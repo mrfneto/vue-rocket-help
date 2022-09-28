@@ -15,10 +15,10 @@ defineProps({
     <h1
       :class="[
         inline ? 'text-xl' : 'text-2xl',
-        'text-violet-600 tracking-wider',
+        'text-brend-600 tracking-wider',
       ]"
     >
-      Rocket<span class="text-emerald-600">Help</span>
+      Rocket<span class="text-primary-600">Help</span>
     </h1>
   </div>
 </template>

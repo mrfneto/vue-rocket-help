@@ -4,8 +4,7 @@ import { useRouter } from "vue-router";
 import { loginWithEmailAndPassword } from "../firebase/useFirebase";
 
 import Logo from "./shared/Logo.vue";
-import BaseButton from "./shared/BaseButton.vue";
-import BaseInput from "./shared/BaseInput.vue";
+import Button from "./shared/Button.vue";
 
 const router = useRouter();
 
@@ -30,20 +29,27 @@ const handleSubmit = async () => {
     <p class="font-bolt mb-6 text-center">Acesse sua conta</p>
 
     <form @submit.prevent="handleSubmit">
-      <BaseInput
+      <input
         id="email"
         type="email"
         v-model="email"
         placeholder="E-mail"
         :error="error"
+        class="form__control bg-base-900 mb-4"
       />
-      <BaseInput
+      <input
         id="password"
         type="password"
         v-model="password"
         placeholder="Senha"
+        class="form__control bg-base-900 mb-4"
       />
-      <BaseButton color="green" class="uppercase w-full"> Entrar </BaseButton>
+      <Button
+        color="green"
+        class="bg-primary-500 hover:bg-primary-600 uppercase w-full"
+      >
+        Entrar
+      </Button>
     </form>
   </main>
 </template>

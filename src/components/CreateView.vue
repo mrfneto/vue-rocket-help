@@ -1,10 +1,8 @@
 <script setup>
 import { reactive } from "vue";
 import { useOrderStore } from "../stores/order";
-import BaseButton from "./shared/BaseButton.vue";
-import IconChevronLeft from "./icons/IconChevronLeft.vue";
-import BaseInput from "./shared/BaseInput.vue";
-import LoadingButton from "./shared/LoadingButton.vue";
+import Header from "./shared/Header.vue";
+import Button from "./shared/Button.vue";
 
 const orderStore = useOrderStore();
 
@@ -35,30 +33,31 @@ const handleSubmit = async () => {
 };
 </script>
 <template>
-  <div class="min-h-screen bg-zinc-800 p-4 flex flex-col">
-    <header class="relative mb-2 flex items-center h-16">
-      <BaseButton :to="{ name: 'home' }" class="absolute">
-        <IconChevronLeft class="w-4 h-4" />
-      </BaseButton>
-      <h1 class="text-center w-full">Solicitação</h1>
-    </header>
+  <div class="min-h-screen bg-base-800 p-4 flex flex-col">
+    <Header />
+
     <main class="flex flex-col grow">
       <form @submit.prevent="handleSubmit" class="flex flex-col grow">
-        <BaseInput
+        <input
           v-model="order.number"
+          type="text"
+          class="form__control mb-4 bg-base-900"
           placeholder="Número do patrimônio"
           :error="error.number"
         />
-        <BaseInput
+        <textarea
           v-model="order.problems"
           type="textarea"
           placeholder="Descrição do problema"
-          class="flex-1"
+          class="form__control bg-base-900 flex-1"
           :error="error.problems"
         />
-        <LoadingButton :loading="orderStore.loading" color="green">
+        <Button
+          :loading="orderStore.loading"
+          class="bg-primary-500 hover:bg-primary-600"
+        >
           Cadastrar
-        </LoadingButton>
+        </Button>
       </form>
     </main>
   </div>
