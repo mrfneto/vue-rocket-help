@@ -6,10 +6,13 @@ import {
 import {
   addDoc,
   collection,
+  doc,
+  getDoc,
   getDocs,
   limit,
   orderBy,
   query,
+  setDoc,
 } from "firebase/firestore";
 import { ref, onMounted, onUnmounted, computed } from "vue";
 import { auth, db } from "./index";
@@ -60,4 +63,13 @@ export const getCollection = async (_collection, _limit = 4) => {
   );
   const snapshot = await getDocs(q);
   return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+};
+
+export const getDocument = async (_collection, _id) => {
+  const result = await getDoc(doc(db, _collection, _id));
+  return result.exists() ? result.data() : null;
+};
+
+export const updateDocument = async (_collection, _document, _id) => {
+  return await setDoc(doc(db, _collection, _id), _document);
 };

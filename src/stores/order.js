@@ -1,5 +1,10 @@
 import { defineStore } from "pinia";
-import { createDocument, getCollection } from "../firebase/useFirebase";
+import {
+  createDocument,
+  getCollection,
+  getDocument,
+  updateDocument,
+} from "../firebase/useFirebase";
 import router from "../router";
 
 export const useOrderStore = defineStore("order", {
@@ -36,6 +41,29 @@ export const useOrderStore = defineStore("order", {
       try {
         this.orders = await getCollection("orders");
         console.log(this.orders);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async getOrder(id) {
+      this.loading = true;
+      try {
+        return await getDocument("orders", id);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async updateOrder(document, id) {
+      this.loading = true;
+      try {
+        await updateDocument("orders", document, id);
+        router.push({ name: "home" });
       } catch (error) {
         console.log(error.message);
       } finally {

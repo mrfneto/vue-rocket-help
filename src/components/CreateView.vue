@@ -14,7 +14,7 @@ const error = reactive({
 const order = reactive({
   number: "",
   problems: "",
-  soluction: "",
+  solution: "",
   status: false,
   created_at: new Date(),
   updated_at: "",
@@ -45,6 +45,9 @@ const handleSubmit = async () => {
           placeholder="Número do patrimônio"
           :error="error.number"
         />
+        <div v-if="error.number" class="form__error">
+          {{ error.number }}
+        </div>
         <textarea
           v-model="order.problems"
           type="textarea"
@@ -52,7 +55,11 @@ const handleSubmit = async () => {
           class="form__control bg-base-900 flex-1"
           :error="error.problems"
         />
+        <div v-if="error.problems" class="form__error">
+          {{ error.problems }}
+        </div>
         <Button
+          type="submit"
           :loading="orderStore.loading"
           class="bg-primary-500 hover:bg-primary-600"
         >

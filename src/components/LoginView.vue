@@ -11,15 +11,19 @@ const router = useRouter();
 const email = ref("mrfneto@gmail.com");
 const password = ref("password");
 const error = ref(null);
+const loading = ref(false);
 
 const handleSubmit = async () => {
   error.value = null;
+  loading.value = true;
   try {
     await loginWithEmailAndPassword(email.value, password.value);
     router.replace({ name: "home" });
   } catch (e) {
     console.log(e);
     error.value = "E-mail ou senha invalida.";
+  } finally {
+    loading.value = false;
   }
 };
 </script>
@@ -45,7 +49,8 @@ const handleSubmit = async () => {
         class="form__control bg-base-900 mb-4"
       />
       <Button
-        color="green"
+        type="submit"
+        :loading="loading"
         class="bg-primary-500 hover:bg-primary-600 uppercase w-full"
       >
         Entrar
