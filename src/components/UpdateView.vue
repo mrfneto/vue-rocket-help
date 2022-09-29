@@ -36,6 +36,10 @@ const handleSubmit = async () => {
   order.value.status = true;
   await orderStore.updateOrder(order.value, orderId.value);
 };
+
+const formatDate = (date) => {
+  return date.toDate().toLocaleString();
+};
 </script>
 <template>
   <div class="container min-h-screen p-4 flex flex-col">
@@ -63,8 +67,8 @@ const handleSubmit = async () => {
           <template #content>
             <p class="font-medium text-sm">{{ order.problems }}</p>
           </template>
-          <template #footer>
-            <p>Registrado em: {{ order.created_at }}</p>
+          <template #footer v-if="order.created_at">
+            <p>Registrado em: {{ formatDate(order.created_at) }}h</p>
           </template>
         </Card>
         <Card class="bg-base-800 mb-4">
@@ -86,7 +90,7 @@ const handleSubmit = async () => {
             </div>
           </template>
           <template #footer v-if="order.updated_at">
-            <p>Registrado em: {{ order.updated_at }}</p>
+            <p>Registrado em: {{ formatDate(order.updated_at) }}h</p>
           </template>
         </Card>
 
