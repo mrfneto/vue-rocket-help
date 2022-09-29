@@ -28,8 +28,8 @@ const handleSubmit = async () => {
 };
 </script>
 <template>
-  <main class="bg-zinc-800 h-screen w-full max-w-screen-sm mx-auto px-4 pt-24">
-    <Logo class="mb-16" />
+  <main class="container h-screen bg-zinc-800">
+    <Logo class="my-16" />
     <p class="font-bolt mb-6 text-center">Acesse sua conta</p>
 
     <form @submit.prevent="handleSubmit">

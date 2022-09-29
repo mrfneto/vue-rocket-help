@@ -13,6 +13,7 @@ import {
   orderBy,
   query,
   setDoc,
+  where,
 } from "firebase/firestore";
 import { ref, onMounted, onUnmounted, computed } from "vue";
 import { auth, db } from "./index";
@@ -51,13 +52,16 @@ export const logoutUser = async () => {
   return await signOut(auth);
 };
 
+// FIRESTORE
+
 export const createDocument = async (_collection, _document) => {
   return await addDoc(collection(db, _collection), _document);
 };
 
-export const getCollection = async (_collection, _limit = 4) => {
+export const getCollection = async (_collection, _status, _limit = 4) => {
   const q = query(
     collection(db, _collection),
+    where("status", "==", _status),
     orderBy("created_at"),
     limit(_limit)
   );

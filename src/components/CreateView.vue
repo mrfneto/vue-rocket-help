@@ -33,7 +33,7 @@ const handleSubmit = async () => {
 };
 </script>
 <template>
-  <div class="min-h-screen bg-base-800 p-4 flex flex-col">
+  <div class="container min-h-screen bg-base-800 p-4 flex flex-col">
     <Header />
 
     <main class="flex flex-col grow">

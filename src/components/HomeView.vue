@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { ref, computed, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 import { useOrderStore } from "../stores/order";
 import { logoutUser } from "../firebase/useFirebase";
@@ -11,16 +11,17 @@ import Button from "./shared/Button.vue";
 
 const router = useRouter();
 const orderStore = useOrderStore();
+const status = ref(false);
+const limit = ref(4);
 
-const active = ref(false);
-
-onMounted(async () => {
-  await orderStore.getOrders();
+watchEffect(() => {
+  orderStore.getOrders(status.value, limit.value);
 });
 
-const orders = computed(() => {
-  return orderStore.getOrdersByStatus(active.value);
-});
+const handleLimit = () => {
+  limit.value = limit.value + 4;
+  console.log(limit.value);
+};
 
 const logout = async () => {
   try {
@@ -33,7 +34,7 @@ const logout = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div class="container min-h-screen flex flex-col">
     <header class="bg-base-800 flex items-center justify-between h-16 px-4">
       <Logo inline />
       <Button @click="logout" class="hover:bg-base-900">
@@ -44,15 +45,15 @@ const logout = async () => {
       <div class="flex items-center justify-between mb-6">
         <h2>Solicitações</h2>
         <p class="text-sm text-zinc-400">
-          {{ orders.length }}
+          {{ orderStore.orders.length }}
         </p>
       </div>
 
       <div class="flex items-center space-x-2 mb-4">
         <Button
-          @click="active = false"
+          @click="status = false"
           :class="
-            active
+            status
               ? 'bg-base-800 hover:bg-base-700'
               : 'border border-secondary-700 text-secondary-700 hover:bg-base-800'
           "
@@ -61,9 +62,9 @@ const logout = async () => {
           Em andamento
         </Button>
         <Button
-          @click="active = true"
+          @click="status = true"
           :class="
-            active
+            status
               ? 'border border-primary-700 text-primary-700 hover:bg-base-800'
               : 'bg-base-800 hover:bg-base-700'
           "
@@ -76,7 +77,18 @@ const logout = async () => {
       <div class="flex justify-center py-4" v-if="orderStore.loading">
         <Loading />
       </div>
-      <List v-if="!orderStore.loading" :orders="orders" />
+      <div v-else>
+        <List v-if="!orderStore.loading" :orders="orderStore.orders" />
+
+        <div class="flex items-center justify-center">
+          <Button
+            v-if="orderStore.orders.length >= limit"
+            @click="handleLimit"
+            class="bg-base-800 px-6"
+            >Mais</Button
+          >
+        </div>
+      </div>
     </main>
     <footer class="py-2 px-4">
       <Button

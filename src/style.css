@@ -7,6 +7,10 @@ body {
   @apply font-roboto bg-base-900 text-base-100;
 }
 
+.container {
+  @apply w-full sm:max-w-sm mx-auto sm:px-4;
+}
+
 /* FORM */
 
 .form__label {

@@ -36,11 +36,10 @@ export const useOrderStore = defineStore("order", {
       }
     },
 
-    async getOrders() {
+    async getOrders(status, limit) {
       this.loading = true;
       try {
-        this.orders = await getCollection("orders");
-        console.log(this.orders);
+        this.orders = await getCollection("orders", status, limit);
       } catch (error) {
         console.log(error.message);
       } finally {
